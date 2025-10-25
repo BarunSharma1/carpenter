@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Carpentry - Expert Woodworking Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3e2723;
+            --secondary: #8d6e63;
+            --accent: #d7ccc8;
+            --light: #f5f5f5;
+            --dark: #1a1a1a;
+            --wood: #a1887f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%238d6e63" width="1200" height="600"/><path fill="%23a1887f" opacity="0.3" d="M0 300L50 283.3C100 266.7 200 233.3 300 233.3C400 233.3 500 266.7 600 283.3C700 300 800 300 900 283.3C1000 266.7 1100 233.3 1150 216.7L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--secondary), var(--wood));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .about-text h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), var(--wood));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--secondary), var(--wood));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(62, 39, 35, 0.9);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--accent);
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--secondary);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--accent);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">Fine Carpentry</a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Crafting Excellence in Wood</h1>
+            <p>Premium carpentry services with 20+ years of experience</p>
+            <a href="#contact" class="cta-button">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                Professional Carpenter Portrait
+            </div>
+            <div class="about-text">
+                <h3>Master Craftsman with a Passion for Wood</h3>
+                <p>With over 20 years of experience in fine carpentry, I've dedicated my career to creating beautiful, functional woodwork that stands the test of time. Every project is approached with meticulous attention to detail and a commitment to excellence.</p>
+                <p>From custom furniture to complete home renovations, I bring expertise, creativity, and traditional craftsmanship to every job. My work is built on a foundation of quality materials, precise techniques, and a genuine love for the craft.</p>
+                
+                <div class="values">
+                    <div class="value-card">
+                        <h4>Quality</h4>
+                        <p>Premium materials and expert craftsmanship</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Integrity</h4>
+                        <p>Honest pricing and reliable service</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Excellence</h4>
+                        <p>Exceeding expectations on every project</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">🪑</div>
+                <div class="service-content">
+                    <h3>Custom Furniture</h3>
+                    <p>Handcrafted tables, chairs, cabinets, and storage solutions tailored to your space and style. Each piece is designed to be both beautiful and functional.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🏠</div>
+                <div class="service-content">
+                    <h3>Home Renovations</h3>
+                    <p>Complete kitchen and bathroom remodels, flooring installation, and interior trim work. Transform your living space with expert carpentry.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🚪</div>
+                <div class="service-content">
+                    <h3>Doors & Windows</h3>
+                    <p>Custom door installation, window frames, and trim work. Enhance your home's aesthetic and energy efficiency with precision carpentry.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">📚</div>
+                <div class="service-content">
+                    <h3>Built-ins & Shelving</h3>
+                    <p>Custom bookcases, entertainment centers, and wall units designed to maximize space and complement your home's architecture.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🌲</div>
+                <div class="service-content">
+                    <h3>Outdoor Structures</h3>
+                    <p>Decks, pergolas, fences, and outdoor furniture. Durable construction that withstands the elements while enhancing your outdoor living space.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">🔧</div>
+                <div class="service-content">
+                    <h3>Repairs & Restoration</h3>
+                    <p>Expert repair and restoration of existing woodwork. Bringing new life to damaged or aging furniture and structures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">Custom Kitchen Cabinets</div>
+                <div class="portfolio-overlay">
+                    <h3>Modern Kitchen Remodel</h3>
+                    <p>Complete kitchen renovation with custom cherry wood cabinets and island.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Dining Table & Chairs</div>
+                <div class="portfolio-overlay">
+                    <h3>Live Edge Dining Set</h3>
+                    <p>Handcrafted walnut dining table with matching chairs for a family of six.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Built-in Bookshelf</div>
+                <div class="portfolio-overlay">
+                    <h3>Library Wall Unit</h3>
+                    <p>Floor-to-ceiling built-in bookcase with integrated lighting and desk.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Outdoor Deck</div>
+                <div class="portfolio-overlay">
+                    <h3>Multi-Level Deck</h3>
+                    <p>Cedar deck with custom railings and built-in seating area.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Bedroom Closet</div>
+                <div class="portfolio-overlay">
+                    <h3>Master Closet System</h3>
+                    <p>Organized closet with custom shelving, drawers, and hanging rods.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Entry Door</div>
+                <div class="portfolio-overlay">
+                    <h3>Custom Entry Door</h3>
+                    <p>Solid oak entry door with stained glass and hand-carved details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-form">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p>(555) 123-4567</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>info@finecarpentry.com</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📍 Location</h3>
+                    <p>Serving the Greater Metro Area</p>
+                </div>
+                <div class="contact-item">
+                    <h3>🌐 Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="LinkedIn">in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Fine Carpentry. All rights reserved. | Crafted with care and precision.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you within 24 hours.');
+            e.target.reset();
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(62, 39, 35, 0.98)';
+            } else {
+                nav.style.background = 'var(--primary)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
